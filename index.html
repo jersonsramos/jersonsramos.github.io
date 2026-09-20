@@ -1265,7 +1265,27 @@
           <div class="project-stack">
             <span>Laravel 12</span><span>Angular 20</span><span>TypeScript</span><span>MySQL</span><span>Redis</span><span>Maya</span><span>Xendit</span>
           </div>
-          <a href="https://imprentra.com" target="_blank" rel="noopener" class="project-link">Visit site &rarr;</a>
+          <div class="project-actions">
+            <a href="https://imprentra.com" target="_blank" rel="noopener" class="project-link">Visit site &rarr;</a>
+          </div>
+          <div class="project-gallery-wrap">
+            <button class="gallery-arrow gallery-arrow-left" onclick="scrollGallery(this, -1)" disabled>
+              <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <div class="project-gallery" id="imprentraGallery">
+              <img src="images/imprentra-1-landing.png" alt="Landing" onclick="openLightbox(this)">
+              <img src="images/imprentra-2-dispatch.png" alt="Dispatch" onclick="openLightbox(this)">
+              <img src="images/imprentra-3-orders.png" alt="Job Orders" onclick="openLightbox(this)">
+              <img src="images/imprentra-4-messenger.png" alt="Messenger" onclick="openLightbox(this)">
+              <img src="images/imprentra-5-reports.png" alt="Reports" onclick="openLightbox(this)">
+              <img src="images/imprentra-6-tax.png" alt="Tax Summary" onclick="openLightbox(this)">
+              <img src="images/imprentra-7-scan.png" alt="Production Scan" onclick="openLightbox(this)">
+              <img src="images/imprentra-8-workflow.png" alt="Workflow" onclick="openLightbox(this)">
+            </div>
+            <button class="gallery-arrow gallery-arrow-right" onclick="scrollGallery(this, 1)">
+              <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+          </div>
         </div>
         <div class="project">
           <div class="project-top">
@@ -1280,10 +1300,10 @@
             <a href="https://menu-staging.innovativesprout.com" target="_blank" rel="noopener" class="project-link">Visit site &rarr;</a>
           </div>
           <div class="project-gallery-wrap">
-            <button class="gallery-arrow gallery-arrow-left" id="galleryPrev" onclick="scrollGallery(-1)" disabled>
+            <button class="gallery-arrow gallery-arrow-left" onclick="scrollGallery(this, -1)" disabled>
               <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
             </button>
-            <div class="project-gallery" id="projectGallery">
+            <div class="project-gallery" id="menuGallery">
               <img src="images/menu-1-dashboard.png" alt="Dashboard" onclick="openLightbox(this)">
               <img src="images/menu-2-profitability.png" alt="Profitability" onclick="openLightbox(this)">
               <img src="images/menu-3-margin-trend.png" alt="Margin Trend" onclick="openLightbox(this)">
@@ -1293,7 +1313,7 @@
               <img src="images/menu-7-process-map.png" alt="Process Map" onclick="openLightbox(this)">
               <img src="images/menu-8-waste.png" alt="Waste" onclick="openLightbox(this)">
             </div>
-            <button class="gallery-arrow gallery-arrow-right" id="galleryNext" onclick="scrollGallery(1)">
+            <button class="gallery-arrow gallery-arrow-right" onclick="scrollGallery(this, 1)">
               <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
             </button>
           </div>
@@ -1371,9 +1391,8 @@
 
     function openLightbox(img) {
       // Collect all gallery images
-      const gallery = document.getElementById('projectGallery');
       lightboxImages.length = 0;
-      gallery.querySelectorAll('img').forEach(i => lightboxImages.push(i.src));
+      document.querySelectorAll('.project-gallery img').forEach(i => lightboxImages.push(i.src));
       lightboxIndex = lightboxImages.indexOf(img.src);
       updateLightbox();
       document.getElementById('lightbox').classList.add('open');
@@ -1404,22 +1423,30 @@
       if (e.key === 'ArrowRight') lightboxNav(1);
     });
 
-    // Gallery scroll arrows
-    const gallery = document.getElementById('projectGallery');
-    const prevBtn = document.getElementById('galleryPrev');
-    const nextBtn = document.getElementById('galleryNext');
+    // Gallery scroll arrows - support multiple galleries
     const scrollAmount = 160;
 
-    function scrollGallery(dir) {
+    function scrollGallery(btn, dir) {
+      const wrap = btn.closest('.project-gallery-wrap');
+      const gallery = wrap.querySelector('.project-gallery');
       gallery.scrollBy({ left: dir * scrollAmount, behavior: 'smooth' });
     }
 
     function updateGalleryArrows() {
-      prevBtn.disabled = gallery.scrollLeft <= 0;
-      nextBtn.disabled = gallery.scrollLeft >= gallery.scrollWidth - gallery.clientWidth - 5;
+      document.querySelectorAll('.project-gallery-wrap').forEach(wrap => {
+        const gallery = wrap.querySelector('.project-gallery');
+        const prevBtn = wrap.querySelector('.gallery-arrow-left');
+        const nextBtn = wrap.querySelector('.gallery-arrow-right');
+        if (gallery && prevBtn && nextBtn) {
+          prevBtn.disabled = gallery.scrollLeft <= 0;
+          nextBtn.disabled = gallery.scrollLeft >= gallery.scrollWidth - gallery.clientWidth - 5;
+        }
+      });
     }
 
-    gallery.addEventListener('scroll', updateGalleryArrows);
+    document.querySelectorAll('.project-gallery').forEach(g => {
+      g.addEventListener('scroll', updateGalleryArrows);
+    });
     window.addEventListener('load', updateGalleryArrows);
 
     // Scroll indicator for middle column
