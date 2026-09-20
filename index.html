@@ -7,7 +7,7 @@
   <meta name="description" content="Full-stack product engineer with 10+ years of experience building SaaS platforms, business applications, and AI-powered automation.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Syne:wght@500;600;700&display=swap" rel="stylesheet">
   <style>
     *,
     *::before,
@@ -18,15 +18,23 @@
     }
 
     :root {
-      --bg: #0a0a0b;
-      --bg-raised: #111113;
-      --bg-card: #161618;
-      --ink: #ececec;
-      --ink-dim: #8a8a8e;
-      --ink-faint: #4a4a4e;
-      --accent: #c8ff00;
-      --accent-dim: rgba(200, 255, 0, 0.12);
-      --border: #222225;
+      --bg: #101110;
+      --bg-raised: #171917;
+      --bg-card: #20231f;
+      --ink: #f7f7f2;
+      --ink-dim: #a8aaa3;
+      --ink-faint: #747a72;
+      --accent: #b8f27a;
+      --accent-hot: #f1f0ea;
+      --accent-dim: rgba(184, 242, 122, 0.14);
+      --border: #30362f;
+      --border-active: #557d5c;
+      --paper: #f1f0ea;
+      --paper-ink: #101110;
+      --forest: #235f45;
+      --sage: #8dcf74;
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --experience-progress: 0;
     }
 
     html, body {
@@ -34,7 +42,7 @@
       overflow: hidden;
       background: var(--bg);
       color: var(--ink);
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
       font-size: 14px;
       line-height: 1.45;
       -webkit-font-smoothing: antialiased;
@@ -43,18 +51,6 @@
     ::selection {
       background: var(--accent);
       color: var(--bg);
-    }
-
-    /* Grain */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      z-index: 9999;
-      pointer-events: none;
-      opacity: 0.02;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-      background-size: 200px;
     }
 
     /* Layout */
@@ -75,6 +71,10 @@
       flex-direction: column;
       align-items: center;
       text-align: center;
+      min-height: 0;
+      overflow-y: auto;
+      scrollbar-color: var(--ink-faint) transparent;
+      scrollbar-width: thin;
     }
 
     .photo {
@@ -87,7 +87,7 @@
     }
 
     .name {
-      font-family: 'Space Grotesk', sans-serif;
+      font-family: 'Syne', sans-serif;
       font-size: 1.1rem;
       font-weight: 700;
       letter-spacing: -0.02em;
@@ -103,11 +103,154 @@
       margin-bottom: 0.65rem;
     }
 
+    .scan-nav {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin: 0 0 0.8rem;
+    }
+
+    .scan-nav a {
+      flex: 1 1 auto;
+      padding: 0.35rem 0.45rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--ink-dim);
+      font-size: 0.58rem;
+      font-weight: 600;
+      text-align: center;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      transition: border-color 160ms ease, color 160ms ease, background-color 160ms ease;
+    }
+
+    .scan-nav a:hover,
+    .scan-nav a:focus-visible {
+      background: var(--accent-dim);
+      border-color: var(--border-active);
+      color: var(--accent);
+    }
+
+    .system-signal {
+      width: 100%;
+      margin: 0.15rem 0 0.8rem;
+      padding: 0.65rem 0.6rem 0.55rem;
+      background: var(--bg-raised);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .signal-path {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      align-items: center;
+      height: 10px;
+      margin-bottom: 0.45rem;
+    }
+
+    .signal-path::before,
+    .signal-path::after {
+      content: '';
+      position: absolute;
+      left: 10%;
+      right: 10%;
+      top: 4px;
+      height: 1px;
+    }
+
+    .signal-path::before {
+      background: var(--border);
+    }
+
+    .signal-path::after {
+      background: var(--accent);
+      box-shadow: 8px 0 18px -8px rgba(255, 255, 255, 0.2);
+      clip-path: inset(0 100% 0 0);
+    }
+
+    .is-ready .signal-path::after {
+      animation: signalTravel 720ms var(--ease-out) 80ms forwards;
+    }
+
+    .signal-node {
+      width: 7px;
+      height: 7px;
+      margin: auto;
+      border-radius: 50%;
+      background: var(--bg-raised);
+      border: 1px solid var(--ink-faint);
+      position: relative;
+      z-index: 1;
+    }
+
+    .is-ready .signal-node {
+      animation: nodeOnline 300ms var(--ease-out) forwards;
+    }
+
+    .is-ready .signal-node:nth-child(2) { animation-delay: 330ms; }
+    .is-ready .signal-node:nth-child(3) { animation-delay: 600ms; }
+
+    .signal-labels {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      font-size: 0.5rem;
+      color: var(--ink-dim);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .signal-labels span:nth-child(2) { text-align: center; }
+    .signal-labels span:last-child { text-align: right; }
+
+    @keyframes signalTravel {
+      to { clip-path: inset(0 0 0 0); }
+    }
+
+    @keyframes nodeOnline {
+      to {
+        background: var(--accent);
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px var(--accent-dim);
+      }
+    }
+
     .about-text {
       font-size: 0.82rem;
       color: var(--ink-dim);
       line-height: 1.5;
       margin-bottom: 0.65rem;
+    }
+
+    .contact-cta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      width: 100%;
+      margin: 0 0 0.8rem;
+      padding: 0.55rem 0.65rem;
+      border: 1px solid var(--accent);
+      border-radius: 5px;
+      color: var(--accent);
+      font-size: 0.68rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background-color 160ms ease, color 160ms ease;
+    }
+
+    .contact-cta span:last-child {
+      font-size: 0.9rem;
+      line-height: 1;
+    }
+
+    .contact-cta:hover,
+    .contact-cta:focus-visible {
+      background: var(--accent);
+      color: var(--bg);
     }
 
     .stats {
@@ -127,7 +270,7 @@
     }
 
     .stat-num {
-      font-family: 'Space Grotesk', sans-serif;
+      font-family: 'Syne', sans-serif;
       font-size: 1.15rem;
       font-weight: 700;
       color: var(--accent);
@@ -229,6 +372,27 @@
       position: relative;
     }
 
+    .experience-progress {
+      position: sticky;
+      top: -1rem;
+      z-index: 12;
+      height: 2px;
+      margin: -1rem -1rem 0;
+      background: var(--border);
+      overflow: hidden;
+    }
+
+    .experience-progress::after {
+      content: '';
+      display: block;
+      width: 100%;
+      height: 100%;
+      background: var(--accent);
+      transform: scaleX(var(--experience-progress));
+      transform-origin: left;
+      transition: transform 120ms linear;
+    }
+
     .col-middle::-webkit-scrollbar {
       width: 4px;
     }
@@ -271,7 +435,7 @@
       pointer-events: auto;
       cursor: pointer;
       animation: scrollPulse 2s ease-in-out infinite;
-      box-shadow: 0 0 12px rgba(200, 255, 0, 0.3);
+      box-shadow: 0 8px 18px -10px rgba(0, 0, 0, 0.9);
     }
 
     .scroll-btn svg {
@@ -285,8 +449,8 @@
     }
 
     @keyframes scrollPulse {
-      0%, 100% { transform: translateY(0); box-shadow: 0 0 12px rgba(200, 255, 0, 0.3); }
-      50% { transform: translateY(3px); box-shadow: 0 0 20px rgba(200, 255, 0, 0.5); }
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(3px); }
     }
 
     .scroll-indicator.hidden {
@@ -295,7 +459,7 @@
     }
 
     .section-label {
-      font-family: 'Space Grotesk', sans-serif;
+      font-family: 'Syne', sans-serif;
       font-size: 0.9rem;
       font-weight: 700;
       letter-spacing: -0.02em;
@@ -324,6 +488,13 @@
       border: 1px solid var(--border);
       border-radius: 6px;
       padding: 0.65rem 0.75rem;
+      transition: border-color 220ms ease, background-color 220ms ease;
+    }
+
+    .exp-card:hover,
+    .exp-card:focus-within {
+      border-color: var(--border-active);
+      background: #131414;
     }
 
     .exp-card-header {
@@ -362,6 +533,43 @@
       flex-direction: column;
       gap: 0.2rem;
       margin-bottom: 0.4rem;
+    }
+
+    .evidence-details {
+      margin: 0.4rem 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .evidence-details summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      padding: 0.45rem 0;
+      color: var(--accent);
+      cursor: pointer;
+      font-size: 0.62rem;
+      font-weight: 600;
+      list-style: none;
+    }
+
+    .evidence-details summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .evidence-details summary::after {
+      content: '+';
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 400;
+    }
+
+    .evidence-details[open] summary::after {
+      content: '−';
+    }
+
+    .evidence-details .exp-contributions {
+      margin-bottom: 0.5rem;
     }
 
     .exp-contributions li {
@@ -418,7 +626,7 @@
     }
 
     .exp-subproject-name {
-      font-family: 'Space Grotesk', sans-serif;
+      font-family: 'Syne', sans-serif;
       font-size: 0.78rem;
       font-weight: 600;
     }
@@ -513,6 +721,33 @@
       border-radius: 6px;
       padding: 0.6rem 0.75rem;
       flex-shrink: 0;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 220ms ease, background-color 220ms ease;
+    }
+
+    .project::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 1px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 360ms var(--ease-out);
+    }
+
+    .project:hover,
+    .project:focus-within {
+      border-color: var(--border-active);
+      background: #131414;
+    }
+
+    .project:hover::before,
+    .project:focus-within::before {
+      transform: scaleX(1);
     }
 
     .project-top {
@@ -523,7 +758,7 @@
     }
 
     .project-name {
-      font-family: 'Space Grotesk', sans-serif;
+      font-family: 'Syne', sans-serif;
       font-size: 0.88rem;
       font-weight: 600;
       letter-spacing: -0.01em;
@@ -573,6 +808,7 @@
 
     .project-link:hover {
       text-decoration: underline;
+      text-underline-offset: 0.2em;
     }
 
     .project-links {
@@ -611,6 +847,20 @@
       margin-top: 0.4rem;
       border-top: 1px solid var(--border);
       padding-top: 0.4rem;
+      --gallery-progress: 0;
+    }
+
+    .project-gallery-wrap::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -1px;
+      width: 100%;
+      height: 1px;
+      background: var(--accent);
+      transform: scaleX(var(--gallery-progress));
+      transform-origin: left;
+      transition: transform 150ms linear;
     }
 
     .project-gallery {
@@ -649,12 +899,13 @@
       cursor: pointer;
       flex-shrink: 0;
       scroll-snap-align: start;
-      transition: border-color 0.15s, transform 0.15s;
+      transition: border-color 180ms ease, transform 240ms var(--ease-out), box-shadow 240ms ease;
     }
 
     .project-gallery img:hover {
       border-color: var(--accent);
-      transform: scale(1.02);
+      transform: translateY(-2px) scale(1.015);
+      box-shadow: 0 8px 18px -10px rgba(0, 0, 0, 0.9);
     }
 
     .gallery-arrow {
@@ -717,13 +968,20 @@
       inset: 0;
       background: rgba(0, 0, 0, 0.92);
       z-index: 1000;
-      display: none;
+      display: flex;
       align-items: center;
       justify-content: center;
+      visibility: hidden;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 180ms ease, visibility 0s linear 180ms;
     }
 
     .lightbox.open {
-      display: flex;
+      visibility: visible;
+      opacity: 1;
+      pointer-events: auto;
+      transition-delay: 0s;
     }
 
     .lightbox-content {
@@ -741,6 +999,14 @@
       object-fit: contain;
       border-radius: 6px;
       border: 1px solid var(--border);
+      transform: scale(0.985);
+      filter: brightness(0.84);
+      transition: transform 420ms var(--ease-out), filter 420ms ease;
+    }
+
+    .lightbox.open img {
+      transform: scale(1);
+      filter: brightness(1);
     }
 
     .lightbox-close {
@@ -877,24 +1143,287 @@
       word-break: break-all;
     }
 
+    /* Editorial hierarchy: a warm reading surface for casework, ink for navigation. */
+    .casework-surface {
+      background: var(--paper);
+      color: var(--paper-ink);
+      border-right-color: #d2d1ca;
+    }
+
+    .casework-surface .experience-progress {
+      background: #d2d1ca;
+    }
+
+    .casework-surface .col-middle::-webkit-scrollbar-thumb,
+    .casework-surface::-webkit-scrollbar-thumb {
+      background: #b8b9b1;
+    }
+
+    .casework-surface .scroll-indicator {
+      background: linear-gradient(to top, var(--paper) 30%, transparent 100%);
+    }
+
+    .casework-surface .section-label::after {
+      background: #d2d1ca;
+    }
+
+    .casework-surface .exp-card {
+      background: #f7f7f2;
+      border-color: #d6d5ce;
+    }
+
+    .casework-surface .exp-card:hover,
+    .casework-surface .exp-card:focus-within {
+      background: #ffffff;
+      border-color: var(--forest);
+    }
+
+    .casework-surface .exp-period,
+    .casework-surface .exp-subproject-badge,
+    .casework-surface .exp-tech span,
+    .casework-surface .evidence-details summary {
+      color: var(--forest);
+    }
+
+    .casework-surface .exp-overview,
+    .casework-surface .exp-contributions li,
+    .casework-surface .exp-subproject-desc,
+    .casework-surface .exp-org {
+      color: #596158;
+    }
+
+    .casework-surface .exp-projects {
+      border-top-color: #d6d5ce;
+    }
+
+    .casework-surface .exp-subproject {
+      background: #ebeae4;
+      border-color: #d6d5ce;
+    }
+
+    .casework-surface .exp-subproject-tech span {
+      color: #596158;
+      background: #f7f7f2;
+      border-color: #d6d5ce;
+    }
+
+    .casework-surface .hl {
+      color: var(--forest);
+    }
+
+    .casework-surface .evidence-details {
+      border-top-color: #d6d5ce;
+    }
+
+    .casework-surface .evidence-details summary:focus-visible {
+      outline-color: var(--forest);
+    }
+
+    .project-index {
+      background: var(--bg);
+    }
+
     /* Focus */
     a:focus-visible,
-    button:focus-visible {
+    button:focus-visible,
+    [role="button"]:focus-visible {
       outline: 2px solid var(--accent);
       outline-offset: 2px;
+    }
+
+    * {
+      scrollbar-color: var(--ink-faint) transparent;
+      scrollbar-width: thin;
+    }
+
+    @media (max-width: 1080px) {
+      .app {
+        grid-template-columns: 210px minmax(360px, 1.15fr) minmax(300px, 0.85fr);
+      }
+    }
+
+    @media (max-width: 760px) {
+      html,
+      body {
+        height: auto;
+        min-height: 100%;
+        overflow: auto;
+      }
+
+      .app {
+        display: block;
+        height: auto;
+        min-height: 100dvh;
+      }
+
+      .sidebar,
+      .col-middle,
+      .col-right {
+        width: 100%;
+        padding: 1.25rem;
+        overflow: visible;
+        border-right: 0;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .sidebar {
+        align-items: flex-start;
+        text-align: left;
+      }
+
+      .photo {
+        width: 88px;
+        height: 88px;
+      }
+
+      .name {
+        font-size: 1.45rem;
+      }
+
+      .about-text {
+        max-width: 65ch;
+      }
+
+      .system-signal {
+        max-width: 390px;
+      }
+
+      .scan-nav,
+      .contact-cta {
+        max-width: 520px;
+      }
+
+      .scan-nav {
+        position: sticky;
+        top: 0;
+        z-index: 5;
+        padding-block: 0.4rem;
+        background: var(--bg);
+      }
+
+      .stats {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .skills-sidebar,
+      .contact-list {
+        width: 100%;
+      }
+
+      .skills-sidebar-list {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .contact-list {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        margin-top: 0;
+      }
+
+      .experience-progress {
+        display: none;
+      }
+
+      .projects-list {
+        overflow: visible;
+      }
+
+      .scroll-indicator {
+        display: none;
+      }
+
+      .lightbox-content {
+        width: calc(100vw - 2rem);
+        height: 75vh;
+      }
+
+      .lightbox-prev { left: 0.5rem; }
+      .lightbox-next { right: 0.5rem; }
+    }
+
+    @media (max-width: 440px) {
+      .stats,
+      .skills-sidebar-list,
+      .contact-list {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .exp-subproject-header,
+      .project-top {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 0.2rem;
+      }
+
+      .gallery-arrow {
+        width: 36px;
+        height: 36px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 1ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 1ms !important;
+      }
+
+      .signal-path::after {
+        clip-path: inset(0 0 0 0);
+      }
+
+      .signal-node {
+        background: var(--accent);
+        border-color: var(--accent);
+      }
+
+      .project-gallery img:hover {
+        transform: none;
+      }
+    }
+
+    .is-paused .signal-path::after,
+    .is-paused .signal-node,
+    .is-paused .scroll-btn {
+      animation-play-state: paused;
     }
   </style>
 </head>
 <body>
 
-  <div class="app">
+  <div class="app" data-theme="editorial">
 
     <!-- Sidebar -->
     <aside class="sidebar">
       <img src="jerson-ramos.jpg" alt="Jerson Ramos" class="photo" width="72" height="72">
-      <div class="name">Jerson Ramos</div>
+      <h1 class="name">Jerson Ramos</h1>
       <div class="title">Full-Stack Product Engineer</div>
+      <div class="system-signal" aria-label="Product delivery path: architecture, build, production">
+        <div class="signal-path" aria-hidden="true">
+          <span class="signal-node" data-phase="architecture"></span>
+          <span class="signal-node" data-phase="build"></span>
+          <span class="signal-node" data-phase="production"></span>
+        </div>
+        <div class="signal-labels" aria-hidden="true">
+          <span>Architecture</span>
+          <span>Build</span>
+          <span>Production</span>
+        </div>
+      </div>
+      <nav class="scan-nav" aria-label="Employer scan path">
+        <a href="#experience">Experience</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </nav>
       <p class="about-text">12 years building SaaS platforms, business applications, and AI-powered automation. I own the product from architecture through launch and beyond.</p>
+      <a class="contact-cta" href="mailto:jerson.s.ramos@gmail.com" aria-label="Email Jerson Ramos">
+        <span>Start a conversation</span>
+        <span aria-hidden="true">&rarr;</span>
+      </a>
       <div class="stats">
         <div class="stat">
           <div class="stat-num">12</div>
@@ -918,55 +1447,55 @@
         <div class="skills-sidebar-list">
           <div class="skill-row">
             <span class="skill-name">Laravel / PHP</span>
-            <span class="skill-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            <span class="skill-stars" role="img" aria-label="5 out of 5">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
           </div>
           <div class="skill-row">
             <span class="skill-name">Angular / AngularJS</span>
-            <span class="skill-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            <span class="skill-stars" role="img" aria-label="5 out of 5">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
           </div>
           <div class="skill-row">
             <span class="skill-name">TypeScript</span>
-            <span class="skill-stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
+            <span class="skill-stars" role="img" aria-label="4 out of 5">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
           </div>
           <div class="skill-row">
             <span class="skill-name">MySQL</span>
-            <span class="skill-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            <span class="skill-stars" role="img" aria-label="5 out of 5">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
           </div>
           <div class="skill-row">
             <span class="skill-name">REST APIs</span>
-            <span class="skill-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            <span class="skill-stars" role="img" aria-label="5 out of 5">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
           </div>
           <div class="skill-row">
             <span class="skill-name">Git</span>
-            <span class="skill-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            <span class="skill-stars" role="img" aria-label="5 out of 5">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
           </div>
           <div class="skill-row">
             <span class="skill-name">Redis</span>
-            <span class="skill-stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
+            <span class="skill-stars" role="img" aria-label="4 out of 5">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
           </div>
           <div class="skill-row">
             <span class="skill-name">Docker / Nginx</span>
-            <span class="skill-stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
+            <span class="skill-stars" role="img" aria-label="4 out of 5">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
           </div>
           <div class="skill-row">
             <span class="skill-name">Stripe / Braintree</span>
-            <span class="skill-stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
+            <span class="skill-stars" role="img" aria-label="4 out of 5">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
           </div>
           <div class="skill-row">
             <span class="skill-name">AI / LLM</span>
-            <span class="skill-stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
+            <span class="skill-stars" role="img" aria-label="4 out of 5">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
           </div>
           <div class="skill-row">
             <span class="skill-name">Maya / Xendit</span>
-            <span class="skill-stars">&#9733;&#9733;&#9733;&#9734;&#9734;</span>
+            <span class="skill-stars" role="img" aria-label="3 out of 5">&#9733;&#9733;&#9733;&#9734;&#9734;</span>
           </div>
           <div class="skill-row">
             <span class="skill-name">Bootstrap / Tailwind</span>
-            <span class="skill-stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
+            <span class="skill-stars" role="img" aria-label="4 out of 5">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
           </div>
         </div>
       </div>
-      <div class="contact-list">
+    <div class="contact-list" id="contact">
         <a href="mailto:jerson.s.ramos@gmail.com" class="contact-item">
           <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
           jerson.s.ramos@gmail.com
@@ -987,9 +1516,10 @@
     </aside>
 
     <!-- Middle: Experience -->
-    <div class="col-middle">
+    <div class="col-middle casework-surface" id="experience">
+      <div class="experience-progress" id="experienceProgress" role="progressbar" aria-label="Experience timeline progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>
       <div>
-        <div class="section-label">Experience</div>
+        <h2 class="section-label">Experience</h2>
         <div class="exp-list">
 
           <div class="exp-card">
@@ -1246,15 +1776,15 @@
         </div>
       </div>
       <div class="scroll-indicator" id="scrollIndicator">
-        <button class="scroll-btn" onclick="document.querySelector('.col-middle').scrollBy({top: 200, behavior: 'smooth'})">
+        <button class="scroll-btn" aria-label="Scroll experience timeline" onclick="document.querySelector('.col-middle').scrollBy({top: 200, behavior: 'smooth'})">
           <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
       </div>
     </div>
 
     <!-- Right: Projects -->
-    <div class="col-right">
-      <div class="section-label">Projects</div>
+    <div class="col-right project-index" id="projects">
+      <h2 class="section-label">Projects</h2>
       <div class="projects-list">
         <div class="project">
           <div class="project-top">
@@ -1273,14 +1803,14 @@
               <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
             </button>
             <div class="project-gallery" id="imprentraGallery">
-              <img src="images/imprentra-1-landing.png" alt="Landing" onclick="openLightbox(this)">
-              <img src="images/imprentra-2-dispatch.png" alt="Dispatch" onclick="openLightbox(this)">
-              <img src="images/imprentra-3-orders.png" alt="Job Orders" onclick="openLightbox(this)">
-              <img src="images/imprentra-4-messenger.png" alt="Messenger" onclick="openLightbox(this)">
-              <img src="images/imprentra-5-reports.png" alt="Reports" onclick="openLightbox(this)">
-              <img src="images/imprentra-6-tax.png" alt="Tax Summary" onclick="openLightbox(this)">
-              <img src="images/imprentra-7-scan.png" alt="Production Scan" onclick="openLightbox(this)">
-              <img src="images/imprentra-8-workflow.png" alt="Workflow" onclick="openLightbox(this)">
+              <img src="images/imprentra-1-landing.png" alt="Imprentra landing dashboard" onclick="openLightbox(this)">
+              <img src="images/imprentra-2-dispatch.png" alt="Imprentra production dispatch board" onclick="openLightbox(this)">
+              <img src="images/imprentra-3-orders.png" alt="Imprentra job order workspace" onclick="openLightbox(this)">
+              <img src="images/imprentra-4-messenger.png" alt="Imprentra Messenger workflow" onclick="openLightbox(this)">
+              <img src="images/imprentra-5-reports.png" alt="Imprentra operational reports" onclick="openLightbox(this)">
+              <img src="images/imprentra-6-tax.png" alt="Imprentra tax summary" onclick="openLightbox(this)">
+              <img src="images/imprentra-7-scan.png" alt="Imprentra production scan" onclick="openLightbox(this)">
+              <img src="images/imprentra-8-workflow.png" alt="Imprentra workflow automation" onclick="openLightbox(this)">
             </div>
             <button class="gallery-arrow gallery-arrow-right" onclick="scrollGallery(this, 1)">
               <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
@@ -1304,14 +1834,14 @@
               <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
             </button>
             <div class="project-gallery" id="menuGallery">
-              <img src="images/menu-1-dashboard.png" alt="Dashboard" onclick="openLightbox(this)">
-              <img src="images/menu-2-profitability.png" alt="Profitability" onclick="openLightbox(this)">
-              <img src="images/menu-3-margin-trend.png" alt="Margin Trend" onclick="openLightbox(this)">
-              <img src="images/menu-4-price-impact.png" alt="Price Impact" onclick="openLightbox(this)">
-              <img src="images/menu-5-opportunity-lab.png" alt="Opportunity Lab" onclick="openLightbox(this)">
-              <img src="images/menu-6-process-guide.png" alt="Process Guide" onclick="openLightbox(this)">
-              <img src="images/menu-7-process-map.png" alt="Process Map" onclick="openLightbox(this)">
-              <img src="images/menu-8-waste.png" alt="Waste" onclick="openLightbox(this)">
+              <img src="images/menu-1-dashboard.png" alt="Menu Engineering dashboard" onclick="openLightbox(this)">
+              <img src="images/menu-2-profitability.png" alt="Menu Engineering profitability view" onclick="openLightbox(this)">
+              <img src="images/menu-3-margin-trend.png" alt="Menu Engineering margin trend" onclick="openLightbox(this)">
+              <img src="images/menu-4-price-impact.png" alt="Menu Engineering price impact analysis" onclick="openLightbox(this)">
+              <img src="images/menu-5-opportunity-lab.png" alt="Menu Engineering opportunity lab" onclick="openLightbox(this)">
+              <img src="images/menu-6-process-guide.png" alt="Menu Engineering process guide" onclick="openLightbox(this)">
+              <img src="images/menu-7-process-map.png" alt="Menu Engineering process map" onclick="openLightbox(this)">
+              <img src="images/menu-8-waste.png" alt="Menu Engineering waste analysis" onclick="openLightbox(this)">
             </div>
             <button class="gallery-arrow gallery-arrow-right" onclick="scrollGallery(this, 1)">
               <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
@@ -1327,7 +1857,25 @@
           <div class="project-stack">
             <span>Laravel</span><span>AngularJS</span><span>MySQL</span><span>Redis</span><span>Braintree</span>
           </div>
-          <a href="https://chefgood.com.au" target="_blank" rel="noopener" class="project-link">Visit site &rarr;</a>
+          <div class="project-actions">
+            <a href="https://chefgood.com.au" target="_blank" rel="noopener" class="project-link">Visit site &rarr;</a>
+          </div>
+          <div class="project-gallery-wrap">
+            <button class="gallery-arrow gallery-arrow-left" onclick="scrollGallery(this, -1)" disabled aria-label="Show previous Chefgood screenshot">
+              <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <div class="project-gallery" id="chefgoodGallery">
+              <img src="images/chefgood-1-meal-swap.png" alt="Chefgood meal swap selection" onclick="openLightbox(this)">
+              <img src="images/chefgood-2-login.png" alt="Chefgood customer dashboard login" onclick="openLightbox(this)">
+              <img src="images/chefgood-3-meal-selection.png" alt="Chefgood meal plan selection" onclick="openLightbox(this)">
+              <img src="images/chefgood-4-partner-login.png" alt="Chefgood partner dashboard login" onclick="openLightbox(this)">
+              <img src="images/chefgood-5-menu.png" alt="Chefgood customer menu" onclick="openLightbox(this)">
+              <img src="images/chefgood-6-subscription-swap.png" alt="Chefgood subscription swap confirmation" onclick="openLightbox(this)">
+            </div>
+            <button class="gallery-arrow gallery-arrow-right" onclick="scrollGallery(this, 1)" aria-label="Show next Chefgood screenshot">
+              <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+          </div>
         </div>
         <div class="project">
           <div class="project-top">
@@ -1346,11 +1894,11 @@
               <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
             </button>
             <div class="project-gallery">
-              <img src="images/sendthat-1-landing.png" alt="Landing" onclick="openLightbox(this)">
-              <img src="images/sendthat-2-quote.png" alt="Quote" onclick="openLightbox(this)">
-              <img src="images/sendthat-3-orders.png" alt="Orders" onclick="openLightbox(this)">
-              <img src="images/sendthat-4-login.png" alt="Login" onclick="openLightbox(this)">
-              <img src="images/sendthat-5-carriers.png" alt="Carriers" onclick="openLightbox(this)">
+              <img src="images/sendthat-1-landing.png" alt="SendThat landing page" onclick="openLightbox(this)">
+              <img src="images/sendthat-2-quote.png" alt="SendThat quote workflow" onclick="openLightbox(this)">
+              <img src="images/sendthat-3-orders.png" alt="SendThat delivery orders" onclick="openLightbox(this)">
+              <img src="images/sendthat-4-login.png" alt="SendThat sign-in screen" onclick="openLightbox(this)">
+              <img src="images/sendthat-5-carriers.png" alt="SendThat carrier comparison" onclick="openLightbox(this)">
             </div>
             <button class="gallery-arrow gallery-arrow-right" onclick="scrollGallery(this, 1)">
               <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
@@ -1387,13 +1935,13 @@
   </div>
 
   <!-- Lightbox -->
-  <div class="lightbox" id="lightbox">
-    <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Project screenshot viewer" aria-hidden="true">
+    <button class="lightbox-close" onclick="closeLightbox()" aria-label="Close screenshot viewer">&times;</button>
     <button class="lightbox-nav lightbox-prev" id="lightboxPrev" onclick="lightboxNav(-1)">
       <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
     </button>
     <div class="lightbox-content">
-      <img id="lightboxImage" src="" alt="Screenshot">
+      <img id="lightboxImage" src="images/imprentra-1-landing.png" alt="Imprentra project screenshot">
     </div>
     <button class="lightbox-nav lightbox-next" id="lightboxNext" onclick="lightboxNav(1)">
       <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
@@ -1405,18 +1953,28 @@
     // Lightbox functionality
     const lightboxImages = [];
     let lightboxIndex = 0;
+    let lightboxTrigger = null;
 
     function openLightbox(img) {
+      lightboxTrigger = img;
       // Collect all gallery images
       lightboxImages.length = 0;
       document.querySelectorAll('.project-gallery img').forEach(i => lightboxImages.push(i.src));
       lightboxIndex = lightboxImages.indexOf(img.src);
       updateLightbox();
-      document.getElementById('lightbox').classList.add('open');
+      const lightbox = document.getElementById('lightbox');
+      lightbox.classList.add('open');
+      lightbox.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      setTimeout(() => lightbox.querySelector('.lightbox-close').focus(), 50);
     }
 
     function closeLightbox() {
-      document.getElementById('lightbox').classList.remove('open');
+      const lightbox = document.getElementById('lightbox');
+      lightbox.classList.remove('open');
+      lightbox.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      if (lightboxTrigger) lightboxTrigger.focus();
     }
 
     function lightboxNav(dir) {
@@ -1434,10 +1992,24 @@
     }
 
     document.addEventListener('keydown', (e) => {
-      if (!document.getElementById('lightbox').classList.contains('open')) return;
+      const lightbox = document.getElementById('lightbox');
+      if (!lightbox.classList.contains('open')) return;
       if (e.key === 'Escape') closeLightbox();
       if (e.key === 'ArrowLeft') lightboxNav(-1);
       if (e.key === 'ArrowRight') lightboxNav(1);
+      if (e.key === 'Tab') {
+        const focusables = [...lightbox.querySelectorAll('button:not([disabled])')];
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+        if (!first || !last) return;
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
     });
 
     // Gallery scroll arrows - support multiple galleries
@@ -1457,31 +2029,90 @@
         if (gallery && prevBtn && nextBtn) {
           prevBtn.disabled = gallery.scrollLeft <= 0;
           nextBtn.disabled = gallery.scrollLeft >= gallery.scrollWidth - gallery.clientWidth - 5;
+          const scrollRange = Math.max(1, gallery.scrollWidth - gallery.clientWidth);
+          const progress = Math.min(100, Math.max(0, gallery.scrollLeft / scrollRange * 100));
+          wrap.style.setProperty('--gallery-progress', progress / 100);
         }
       });
     }
 
     document.querySelectorAll('.project-gallery').forEach(g => {
-      g.addEventListener('scroll', updateGalleryArrows);
+      g.addEventListener('scroll', updateGalleryArrows, { passive: true });
+      g.querySelectorAll('img').forEach(img => {
+        img.tabIndex = 0;
+        img.setAttribute('role', 'button');
+        img.setAttribute('aria-label', `Open ${img.alt} screenshot`);
+        img.addEventListener('keydown', event => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            openLightbox(img);
+          }
+        });
+      });
     });
     window.addEventListener('load', updateGalleryArrows);
 
     // Scroll indicator for middle column
     const middleCol = document.querySelector('.col-middle');
     const scrollIndicator = document.getElementById('scrollIndicator');
+    const experienceProgress = document.getElementById('experienceProgress');
 
     if (middleCol && scrollIndicator) {
-      middleCol.addEventListener('scroll', () => {
+      const updateExperienceProgress = () => {
         const atBottom = middleCol.scrollHeight - middleCol.scrollTop <= middleCol.clientHeight + 10;
         scrollIndicator.classList.toggle('hidden', atBottom);
-      });
+        const scrollRange = Math.max(1, middleCol.scrollHeight - middleCol.clientHeight);
+        const progress = Math.min(100, Math.max(0, middleCol.scrollTop / scrollRange * 100));
+        document.documentElement.style.setProperty('--experience-progress', progress / 100);
+        experienceProgress.setAttribute('aria-valuenow', Math.round(progress));
+      };
+
+      middleCol.addEventListener('scroll', updateExperienceProgress, { passive: true });
 
       // Check on load
-      setTimeout(() => {
-        const atBottom = middleCol.scrollHeight - middleCol.scrollTop <= middleCol.clientHeight + 10;
-        scrollIndicator.classList.toggle('hidden', atBottom);
-      }, 100);
+      setTimeout(updateExperienceProgress, 100);
     }
+
+    document.querySelectorAll('.gallery-arrow').forEach(button => {
+      const isPrevious = button.classList.contains('gallery-arrow-left');
+      button.setAttribute('aria-label', isPrevious ? 'Previous screenshots' : 'More screenshots');
+    });
+
+    document.querySelectorAll('.lightbox-nav').forEach(button => {
+      const isPrevious = button.classList.contains('lightbox-prev');
+      button.setAttribute('aria-label', isPrevious ? 'Previous screenshot' : 'Next screenshot');
+    });
+
+    function enhanceEvidenceDetails() {
+      let firstEvidence = true;
+      document.querySelectorAll('.exp-contributions').forEach(list => {
+        if (list.closest('details')) return;
+        const details = document.createElement('details');
+        details.className = 'evidence-details';
+        details.open = firstEvidence;
+        firstEvidence = false;
+        const summary = document.createElement('summary');
+        const projectName = list.closest('.exp-subproject')?.querySelector('.exp-subproject-name')?.textContent;
+        summary.textContent = projectName ? `${projectName} · Detailed contributions` : 'Detailed contributions';
+        details.append(summary);
+        list.parentNode.insertBefore(details, list);
+        details.append(list);
+      });
+    }
+
+    enhanceEvidenceDetails();
+
+    document.getElementById('lightbox').addEventListener('click', event => {
+      if (event.target.id === 'lightbox') closeLightbox();
+    });
+
+    document.addEventListener('visibilitychange', () => {
+      document.documentElement.classList.toggle('is-paused', document.visibilityState !== 'visible');
+    });
+
+    requestAnimationFrame(() => {
+      document.documentElement.classList.add('is-ready');
+    });
   </script>
 
 </body>
