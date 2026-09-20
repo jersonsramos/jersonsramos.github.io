@@ -469,6 +469,14 @@
       gap: 0.5rem;
     }
 
+    .section-intro {
+      max-width: 52ch;
+      margin: -0.1rem 0 0.7rem;
+      color: #596158;
+      font-size: 0.72rem;
+      line-height: 1.45;
+    }
+
     .section-label::after {
       content: '';
       flex: 1;
@@ -487,7 +495,8 @@
       background: var(--bg-raised);
       border: 1px solid var(--border);
       border-radius: 6px;
-      padding: 0.65rem 0.75rem;
+      padding: 0.8rem 0.85rem;
+      scroll-margin-top: 1rem;
       transition: border-color 220ms ease, background-color 220ms ease;
     }
 
@@ -497,8 +506,37 @@
       background: #131414;
     }
 
+    /* The selected case is the portfolio's proof point: give it the strongest expression already owned by the page. */
+    .casework-surface .exp-card.lead-exp-card {
+      border-color: var(--forest);
+      box-shadow: 0 14px 26px -22px rgba(35, 95, 69, 0.8);
+    }
+
+    .casework-surface .exp-card.lead-exp-card .exp-role {
+      font-size: 1rem;
+    }
+
+    .casework-surface .exp-card.lead-exp-card .exp-overview {
+      font-size: 0.8rem;
+      color: #46534a;
+    }
+
+    .casework-surface .exp-card.lead-exp-card .lead-project {
+      background: #ffffff;
+      border-color: var(--forest);
+      padding: 0.7rem 0.75rem;
+    }
+
+    .casework-surface .exp-card.lead-exp-card .lead-project .exp-subproject-name {
+      font-size: 0.88rem;
+    }
+
     .exp-card-header {
-      margin-bottom: 0.35rem;
+      display: grid;
+      grid-template-columns: minmax(110px, 0.34fr) 1fr;
+      column-gap: 0.75rem;
+      align-items: baseline;
+      margin-bottom: 0.5rem;
     }
 
     .exp-period {
@@ -507,10 +545,11 @@
       text-transform: uppercase;
       letter-spacing: 0.06em;
       color: var(--accent);
+      grid-row: span 3;
     }
 
     .exp-role {
-      font-size: 0.82rem;
+      font-size: 0.88rem;
       font-weight: 600;
       margin-top: 0.05rem;
     }
@@ -1284,6 +1323,19 @@
         max-width: 65ch;
       }
 
+      .section-intro {
+        margin-bottom: 0.85rem;
+      }
+
+      .exp-card-header {
+        grid-template-columns: 1fr;
+        gap: 0.08rem;
+      }
+
+      .exp-period {
+        grid-row: auto;
+      }
+
       .system-signal {
         max-width: 390px;
       }
@@ -1520,9 +1572,10 @@
       <div class="experience-progress" id="experienceProgress" role="progressbar" aria-label="Experience timeline progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>
       <div>
         <h2 class="section-label">Experience</h2>
+        <p class="section-intro">A concise record of the products, systems, and delivery work I have owned or contributed to.</p>
         <div class="exp-list">
 
-          <div class="exp-card">
+          <div class="exp-card lead-exp-card">
             <div class="exp-card-header">
               <div class="exp-period">Jun 2026 – Aug 2026</div>
               <div class="exp-role">Freelance Full-Stack Product Engineer</div>
@@ -1533,7 +1586,7 @@
             <div class="exp-projects">
               <div class="exp-projects-label">Projects</div>
 
-              <div class="exp-subproject">
+              <div class="exp-subproject lead-project">
                 <div class="exp-subproject-header">
                   <span class="exp-subproject-name">Menu Engineering</span>
                   <span class="exp-subproject-badge">Food-Service Profitability</span>
@@ -2085,11 +2138,12 @@
 
     function enhanceEvidenceDetails() {
       let firstEvidence = true;
+      const showFirstEvidence = window.matchMedia('(min-width: 761px)').matches;
       document.querySelectorAll('.exp-contributions').forEach(list => {
         if (list.closest('details')) return;
         const details = document.createElement('details');
         details.className = 'evidence-details';
-        details.open = firstEvidence;
+        details.open = showFirstEvidence && firstEvidence;
         firstEvidence = false;
         const summary = document.createElement('summary');
         const projectName = list.closest('.exp-subproject')?.querySelector('.exp-subproject-name')?.textContent;
