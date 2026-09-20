@@ -1338,7 +1338,24 @@
           <div class="project-stack">
             <span>Laravel</span><span>AngularJS</span><span>MySQL</span><span>Stripe</span><span>MachShip</span>
           </div>
-          <a href="https://sendthat.com.au" target="_blank" rel="noopener" class="project-link">Visit site &rarr;</a>
+          <div class="project-actions">
+            <a href="https://sendthat.com.au" target="_blank" rel="noopener" class="project-link">Visit site &rarr;</a>
+          </div>
+          <div class="project-gallery-wrap">
+            <button class="gallery-arrow gallery-arrow-left" onclick="scrollGallery(this, -1)" disabled>
+              <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <div class="project-gallery">
+              <img src="images/sendthat-1-landing.png" alt="Landing" onclick="openLightbox(this)">
+              <img src="images/sendthat-2-quote.png" alt="Quote" onclick="openLightbox(this)">
+              <img src="images/sendthat-3-orders.png" alt="Orders" onclick="openLightbox(this)">
+              <img src="images/sendthat-4-login.png" alt="Login" onclick="openLightbox(this)">
+              <img src="images/sendthat-5-carriers.png" alt="Carriers" onclick="openLightbox(this)">
+            </div>
+            <button class="gallery-arrow gallery-arrow-right" onclick="scrollGallery(this, 1)">
+              <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+          </div>
         </div>
         <div class="project">
           <div class="project-top">
