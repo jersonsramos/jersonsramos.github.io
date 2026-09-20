@@ -1,0 +1,1444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jerson Ramos — Full-Stack Product Engineer</title>
+  <meta name="description" content="Full-stack product engineer with 10+ years of experience building SaaS platforms, business applications, and AI-powered automation.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #0a0a0b;
+      --bg-raised: #111113;
+      --bg-card: #161618;
+      --ink: #ececec;
+      --ink-dim: #8a8a8e;
+      --ink-faint: #4a4a4e;
+      --accent: #c8ff00;
+      --accent-dim: rgba(200, 255, 0, 0.12);
+      --border: #222225;
+    }
+
+    html, body {
+      height: 100%;
+      overflow: hidden;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 14px;
+      line-height: 1.45;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    ::selection {
+      background: var(--accent);
+      color: var(--bg);
+    }
+
+    /* Grain */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      pointer-events: none;
+      opacity: 0.02;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 200px;
+    }
+
+    /* Layout */
+    .app {
+      display: grid;
+      grid-template-columns: 220px 1fr 1fr;
+      grid-template-rows: 1fr;
+      height: 100vh;
+      height: 100dvh;
+      gap: 0;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      border-right: 1px solid var(--border);
+      padding: 1rem 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .photo {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--border);
+      margin-bottom: 0.5rem;
+    }
+
+    .name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.1rem;
+    }
+
+    .title {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      margin-bottom: 0.65rem;
+    }
+
+    .about-text {
+      font-size: 0.82rem;
+      color: var(--ink-dim);
+      line-height: 1.5;
+      margin-bottom: 0.65rem;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.3rem;
+      width: 100%;
+      margin-bottom: 0.75rem;
+    }
+
+    .stat {
+      background: var(--bg-raised);
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      padding: 0.4rem;
+      text-align: center;
+    }
+
+    .stat-num {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 0.65rem;
+      color: var(--ink-faint);
+      margin-top: 0.1rem;
+    }
+
+    .contact-list {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+      margin-top: auto;
+    }
+
+    .contact-item {
+      font-size: 0.78rem;
+      color: var(--ink-dim);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.3rem 0.5rem;
+      border-radius: 4px;
+      transition: background 0.15s;
+    }
+
+    .contact-item:hover {
+      background: var(--bg-raised);
+      color: var(--ink);
+    }
+
+    .contact-item svg {
+      width: 12px;
+      height: 12px;
+      stroke: var(--accent);
+      fill: none;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex-shrink: 0;
+    }
+
+    /* Sidebar skills */
+    .skills-sidebar {
+      margin-bottom: 0.75rem;
+    }
+
+    .skills-sidebar-label {
+      font-size: 0.65rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--ink-faint);
+      margin-bottom: 0.5rem;
+    }
+
+    .skills-sidebar-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    .skill-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.25rem 0.4rem;
+      background: var(--bg-raised);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+    }
+
+    .skill-name {
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    .skill-stars {
+      font-size: 0.7rem;
+      color: var(--accent);
+      letter-spacing: 1px;
+    }
+
+    /* Middle column */
+    .col-middle {
+      border-right: 1px solid var(--border);
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      overflow-y: auto;
+      position: relative;
+    }
+
+    .col-middle::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .col-middle::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .col-middle::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 2px;
+    }
+
+    /* Scroll indicator */
+    .scroll-indicator {
+      position: sticky;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 48px;
+      background: linear-gradient(to top, var(--bg) 30%, transparent 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      z-index: 10;
+      margin: 0 -1rem -1rem -1rem;
+      padding-bottom: 0.5rem;
+    }
+
+    .scroll-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: auto;
+      cursor: pointer;
+      animation: scrollPulse 2s ease-in-out infinite;
+      box-shadow: 0 0 12px rgba(200, 255, 0, 0.3);
+    }
+
+    .scroll-btn svg {
+      width: 16px;
+      height: 16px;
+      stroke: var(--bg);
+      fill: none;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { transform: translateY(0); box-shadow: 0 0 12px rgba(200, 255, 0, 0.3); }
+      50% { transform: translateY(3px); box-shadow: 0 0 20px rgba(200, 255, 0, 0.5); }
+    }
+
+    .scroll-indicator.hidden {
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .section-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.45rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* Experience */
+    .exp-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .exp-card {
+      background: var(--bg-raised);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.65rem 0.75rem;
+    }
+
+    .exp-card-header {
+      margin-bottom: 0.35rem;
+    }
+
+    .exp-period {
+      font-size: 0.6rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--accent);
+    }
+
+    .exp-role {
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin-top: 0.05rem;
+    }
+
+    .exp-org {
+      font-size: 0.72rem;
+      color: var(--ink-dim);
+    }
+
+    .exp-overview {
+      font-size: 0.75rem;
+      color: var(--ink-dim);
+      line-height: 1.45;
+      margin-bottom: 0.4rem;
+    }
+
+    .exp-contributions {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .exp-contributions li {
+      font-size: 0.72rem;
+      color: var(--ink-dim);
+      line-height: 1.4;
+      padding-left: 0.7rem;
+      position: relative;
+    }
+
+    .exp-contributions li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.4rem;
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .exp-projects {
+      margin-top: 0.4rem;
+      padding-top: 0.4rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .exp-projects-label {
+      font-size: 0.6rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--ink-faint);
+      margin-bottom: 0.3rem;
+    }
+
+    .exp-subproject {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      padding: 0.5rem 0.6rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .exp-subproject:last-child {
+      margin-bottom: 0;
+    }
+
+    .exp-subproject-header {
+      display: flex;
+      align-items: baseline;
+      gap: 0.4rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .exp-subproject-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+
+    .exp-subproject-badge {
+      font-size: 0.52rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--accent);
+      background: var(--accent-dim);
+      padding: 0.08rem 0.3rem;
+      border-radius: 3px;
+    }
+
+    .exp-subproject-desc {
+      font-size: 0.7rem;
+      color: var(--ink-dim);
+      line-height: 1.4;
+      margin-bottom: 0.25rem;
+    }
+
+    .exp-subproject-tech {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.15rem;
+    }
+
+    .exp-subproject-tech span {
+      font-size: 0.55rem;
+      color: var(--ink-faint);
+      background: var(--bg-raised);
+      border: 1px solid var(--border);
+      padding: 0.05rem 0.25rem;
+      border-radius: 2px;
+    }
+
+    .hl {
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .exp-tech {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.2rem;
+    }
+
+    .exp-tech span {
+      font-size: 0.58rem;
+      font-weight: 500;
+      color: var(--accent);
+      background: var(--accent-dim);
+      padding: 0.1rem 0.35rem;
+      border-radius: 3px;
+    }
+
+    /* Right column */
+    .col-right {
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      overflow: hidden;
+    }
+
+    /* Projects */
+    .projects-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    .projects-list::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .projects-list::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .projects-list::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 2px;
+    }
+
+    .project {
+      background: var(--bg-raised);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.6rem 0.75rem;
+      flex-shrink: 0;
+    }
+
+    .project-top {
+      display: flex;
+      align-items: baseline;
+      gap: 0.45rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .project-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+
+    .project-badge {
+      font-size: 0.58rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--accent);
+      background: var(--accent-dim);
+      padding: 0.1rem 0.35rem;
+      border-radius: 3px;
+    }
+
+    .project-desc {
+      font-size: 0.78rem;
+      color: var(--ink-dim);
+      line-height: 1.4;
+      margin-bottom: 0.3rem;
+    }
+
+    .project-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.2rem;
+    }
+
+    .project-stack span {
+      font-size: 0.65rem;
+      color: var(--ink-faint);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 0.08rem 0.3rem;
+      border-radius: 3px;
+    }
+
+    .project-link {
+      display: inline-block;
+      margin-top: 0.3rem;
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .project-link:hover {
+      text-decoration: underline;
+    }
+
+    .project-links {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .project-actions {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+      margin-top: 0.3rem;
+    }
+
+    .project-gallery-btn {
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: var(--ink-dim);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 0.2rem 0.5rem;
+      border-radius: 3px;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.15s;
+    }
+
+    .project-gallery-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* Inline project gallery */
+    .project-gallery-wrap {
+      position: relative;
+      margin-top: 0.4rem;
+      border-top: 1px solid var(--border);
+      padding-top: 0.4rem;
+    }
+
+    .project-gallery {
+      display: flex;
+      gap: 0.4rem;
+      overflow-x: auto;
+      padding: 0.25rem 0;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scroll-behavior: smooth;
+    }
+
+    .project-gallery::-webkit-scrollbar {
+      height: 4px;
+    }
+
+    .project-gallery::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .project-gallery::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 2px;
+    }
+
+    .project-gallery::-webkit-scrollbar-thumb:hover {
+      background: var(--ink-faint);
+    }
+
+    .project-gallery img {
+      width: 140px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      flex-shrink: 0;
+      scroll-snap-align: start;
+      transition: border-color 0.15s, transform 0.15s;
+    }
+
+    .project-gallery img:hover {
+      border-color: var(--accent);
+      transform: scale(1.02);
+    }
+
+    .gallery-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 28px;
+      height: 28px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 5;
+      transition: all 0.15s;
+    }
+
+    .gallery-arrow:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .gallery-arrow:disabled {
+      opacity: 0.2;
+      cursor: not-allowed;
+    }
+
+    .gallery-arrow:disabled:hover {
+      border-color: var(--border);
+      color: var(--ink-dim);
+    }
+
+    .gallery-arrow svg {
+      width: 14px;
+      height: 14px;
+      stroke: var(--ink-dim);
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .gallery-arrow:hover svg {
+      stroke: var(--accent);
+    }
+
+    .gallery-arrow-left {
+      left: -4px;
+    }
+
+    .gallery-arrow-right {
+      right: -4px;
+    }
+
+    /* Lightbox */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.92);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lightbox.open {
+      display: flex;
+    }
+
+    .lightbox-content {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 90vw;
+      height: 85vh;
+    }
+
+    .lightbox img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: var(--bg-raised);
+      border: 1px solid var(--border);
+      color: var(--ink-dim);
+      width: 36px;
+      height: 36px;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      transition: all 0.15s;
+      z-index: 10;
+    }
+
+    .lightbox-close:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .lightbox-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 40px;
+      height: 40px;
+      background: var(--bg-raised);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+      z-index: 10;
+    }
+
+    .lightbox-nav:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .lightbox-nav:disabled {
+      opacity: 0.2;
+      cursor: not-allowed;
+    }
+
+    .lightbox-nav svg {
+      width: 18px;
+      height: 18px;
+      stroke: var(--ink-dim);
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .lightbox-nav:hover svg {
+      stroke: var(--accent);
+    }
+
+    .lightbox-prev {
+      left: 1rem;
+    }
+
+    .lightbox-next {
+      right: 1rem;
+    }
+
+    .lightbox-counter {
+      position: absolute;
+      bottom: 1rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.8rem;
+      color: var(--ink-dim);
+      background: var(--bg-raised);
+      border: 1px solid var(--border);
+      padding: 0.3rem 0.75rem;
+      border-radius: 4px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Contact cards */
+    .contact-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.4rem;
+    }
+
+    .ccard {
+      background: var(--bg-raised);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.6rem 0.7rem;
+      text-decoration: none;
+      transition: border-color 0.15s;
+    }
+
+    .ccard:hover {
+      border-color: var(--ink-faint);
+    }
+
+    .ccard svg {
+      width: 14px;
+      height: 14px;
+      stroke: var(--accent);
+      fill: none;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      margin-bottom: 0.3rem;
+      display: block;
+    }
+
+    .ccard-label {
+      font-size: 0.55rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--ink-faint);
+    }
+
+    .ccard-value {
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: var(--ink);
+      word-break: break-all;
+    }
+
+    /* Focus */
+    a:focus-visible,
+    button:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="app">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <img src="jerson-ramos.jpg" alt="Jerson Ramos" class="photo" width="72" height="72">
+      <div class="name">Jerson Ramos</div>
+      <div class="title">Full-Stack Product Engineer</div>
+      <p class="about-text">10+ years building SaaS platforms, payment systems, and AI-powered automation. I own the product from architecture through launch and beyond.</p>
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-num">10+</div>
+          <div class="stat-label">Years</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">5</div>
+          <div class="stat-label">Projects</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">3</div>
+          <div class="stat-label">Payments</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">2</div>
+          <div class="stat-label">Cloud</div>
+        </div>
+      </div>
+      <div class="skills-sidebar">
+        <div class="skills-sidebar-label">Skills</div>
+        <div class="skills-sidebar-list">
+          <div class="skill-row">
+            <span class="skill-name">Laravel / PHP</span>
+            <span class="skill-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+          </div>
+          <div class="skill-row">
+            <span class="skill-name">Angular / AngularJS</span>
+            <span class="skill-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+          </div>
+          <div class="skill-row">
+            <span class="skill-name">TypeScript</span>
+            <span class="skill-stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
+          </div>
+          <div class="skill-row">
+            <span class="skill-name">MySQL</span>
+            <span class="skill-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+          </div>
+          <div class="skill-row">
+            <span class="skill-name">REST APIs</span>
+            <span class="skill-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+          </div>
+          <div class="skill-row">
+            <span class="skill-name">Git</span>
+            <span class="skill-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+          </div>
+          <div class="skill-row">
+            <span class="skill-name">Redis</span>
+            <span class="skill-stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
+          </div>
+          <div class="skill-row">
+            <span class="skill-name">Docker / Nginx</span>
+            <span class="skill-stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
+          </div>
+          <div class="skill-row">
+            <span class="skill-name">Stripe / Braintree</span>
+            <span class="skill-stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
+          </div>
+          <div class="skill-row">
+            <span class="skill-name">AI / LLM</span>
+            <span class="skill-stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
+          </div>
+          <div class="skill-row">
+            <span class="skill-name">Maya / Xendit</span>
+            <span class="skill-stars">&#9733;&#9733;&#9733;&#9734;&#9734;</span>
+          </div>
+          <div class="skill-row">
+            <span class="skill-name">Bootstrap / Tailwind</span>
+            <span class="skill-stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
+          </div>
+        </div>
+      </div>
+      <div class="contact-list">
+        <a href="mailto:jerson.s.ramos@gmail.com" class="contact-item">
+          <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          jerson.s.ramos@gmail.com
+        </a>
+        <a href="tel:+639052537600" class="contact-item">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+          +63 905 253 7600
+        </a>
+        <a href="https://www.linkedin.com/in/jersonramos" target="_blank" rel="noopener" class="contact-item">
+          <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          linkedin.com/in/jersonramos
+        </a>
+        <a href="https://github.com/jersonsramos" target="_blank" rel="noopener" class="contact-item">
+          <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+          github.com/jersonsramos
+        </a>
+      </div>
+    </aside>
+
+    <!-- Middle: Experience -->
+    <div class="col-middle">
+      <div>
+        <div class="section-label">Experience</div>
+        <div class="exp-list">
+
+          <div class="exp-card">
+            <div class="exp-card-header">
+              <div class="exp-period">Jun 2026 – Aug 2026</div>
+              <div class="exp-role">Freelance Full-Stack Product Engineer</div>
+              <div class="exp-org">Upwork — Remote</div>
+            </div>
+            <p class="exp-overview">Worked directly with a food-service client to transform operational requirements into a <span class="hl">full-stack profitability and decision-support platform</span>. Led the project from <span class="hl">discovery and solution design</span> through architecture, frontend and backend development, testing, documentation, and staging deployment preparation.</p>
+
+            <div class="exp-projects">
+              <div class="exp-projects-label">Projects</div>
+
+              <div class="exp-subproject">
+                <div class="exp-subproject-header">
+                  <span class="exp-subproject-name">Menu Engineering</span>
+                  <span class="exp-subproject-badge">Food-Service Profitability</span>
+                </div>
+                <p class="exp-subproject-desc">Designed and developed a decision-support platform that helps finance and cost-control teams understand product profitability, manage food costs, identify margin opportunities, and evaluate pricing decisions across branches and sales channels.</p>
+                <ul class="exp-contributions">
+                  <li>Designed the product architecture and built the platform using <span class="hl">Laravel</span>, <span class="hl">Angular</span>, <span class="hl">TypeScript</span>, and <span class="hl">MySQL</span>.</li>
+                  <li>Developed <span class="hl">profitability dashboards</span> covering selling price, product cost, gross profit, GP percentage, total gross profit, channel fees, and cost provenance.</li>
+                  <li>Implemented <span class="hl">menu classifications</span> — Star, Workhorse, Opportunity, and Review — using product sales and profitability within the selected business scope.</li>
+                  <li>Built a <span class="hl">recursive recipe and bill-of-materials costing engine</span> supporting ingredients, packaging, purchased items, work-in-progress items, sub-recipes, yield, waste, unit conversion, and supplier-price history.</li>
+                  <li>Developed <span class="hl">operational workflows</span> for Central Kitchen production, branch receiving, inventory transfers, inventory variance, waste tracking, and ingredient-demand forecasting.</li>
+                  <li>Built <span class="hl">reporting tools</span> for profitability, margin trends, operational complexity, and the business impact of price and cost changes.</li>
+                  <li>Created an <span class="hl">Opportunity Lab</span> for ranking improvement opportunities, reviewing recommendations, and testing pricing, supplier, recipe, waste, volume, and availability scenarios without changing live data.</li>
+                  <li>Implemented <span class="hl">secure authentication</span>, account recovery, role-based permissions, activity logs, feature controls, failed-job visibility, and business alerts.</li>
+                  <li>Developed <span class="hl">CSV and REST data-import</span> workflows with validation, encrypted credentials, OAuth support, synchronization history, and error reporting.</li>
+                  <li>Designed an <span class="hl">accessible, responsive, data-dense interface</span> for finance and cost-control users, including mobile alternatives for complex visualizations.</li>
+                  <li>Established <span class="hl">automated backend and frontend testing</span>, including a verified run of <span class="hl">661 tests</span> and <span class="hl">2,269 assertions</span> with <span class="hl">92.31% line coverage</span> and <span class="hl">85.59% branch coverage</span>.</li>
+                  <li>Prepared a <span class="hl">Docker, Nginx, PHP-FPM</span>, queue-worker, scheduler, and VPS-based staging deployment workflow.</li>
+                </ul>
+                <div class="exp-subproject-tech">
+                  <span>PHP 8</span><span>Laravel 13</span><span>Angular 21</span><span>TypeScript</span><span>MySQL</span><span>REST APIs</span><span>OAuth 2.0</span><span>Docker</span><span>Nginx</span><span>Bootstrap</span><span>PHPUnit</span><span>Vitest</span><span>Git</span><span>GitHub Actions</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="exp-card">
+            <div class="exp-card-header">
+              <div class="exp-period">Feb 2026 – Aug 2026</div>
+              <div class="exp-role">Full-Stack Product Engineer</div>
+              <div class="exp-org">Innovative Sprouts IT Solutions</div>
+            </div>
+            <p class="exp-overview">Led the design and development of SaaS products from <span class="hl">discovery and architecture</span> through frontend and backend implementation, testing, deployment, documentation, and ongoing product support.</p>
+
+            <div class="exp-projects">
+              <div class="exp-projects-label">Projects</div>
+
+              <div class="exp-subproject">
+                <div class="exp-subproject-header">
+                  <span class="exp-subproject-name">Imprentra</span>
+                  <span class="exp-subproject-badge">Multi-Tenant SaaS</span>
+                </div>
+                <p class="exp-subproject-desc">Built Imprentra, an all-in-one SaaS platform that helps Philippine printing businesses manage job orders, production, customers, quotations, payments, staff, reporting, and customer-facing services from one workspace.</p>
+                <ul class="exp-contributions">
+                  <li>Designed and developed a <span class="hl">multi-tenant architecture</span> with strict data isolation between printing businesses.</li>
+                  <li>Built <span class="hl">job-order workflows</span> covering order creation, approval, production, printing, release, cancellation, due dates, assignments, attachments, and complete status histories.</li>
+                  <li>Developed <span class="hl">production-management tools</span> including customizable workflows, production queues, bulk status updates, and QR-based status scanning.</li>
+                  <li>Built <span class="hl">customer-management</span>, quotation, public approval, payment, refund, tax, discount, and Statement of Account workflows.</li>
+                  <li>Implemented configurable features for <span class="hl">general printing and BIR-accredited receipt printers</span>, including ATP details, serial-number ranges, booklet counts, and confirmation workflows.</li>
+                  <li>Developed <span class="hl">tenant-specific public websites</span>, order-tracking pages, quote-request forms, and customer self-service experiences.</li>
+                  <li>Built <span class="hl">operational and financial reporting tools</span> with filters, background generation, Excel exports, expenses, outstanding balances, and profitability reporting.</li>
+                  <li>Developed <span class="hl">AI-assisted workflows</span> that convert customer messages into draft customers, job orders, and payment records while keeping final approval with the user.</li>
+                  <li>Implemented <span class="hl">AI-assisted marketing tools</span> for content planning, social-media post generation, image creation, and PDF generation.</li>
+                  <li>Built <span class="hl">role-based access controls</span>, custom permissions, two-factor authentication, activity logs, subscription limits, and system-administration tools.</li>
+                  <li>Implemented <span class="hl">subscription and payment workflows</span> using <span class="hl">Maya</span> and <span class="hl">Xendit</span>, including invoices, coupons, renewals, webhooks, and payment reconciliation.</li>
+                  <li>Developed <span class="hl">real-time notifications</span> and background processing using <span class="hl">Laravel Reverb</span>, Redis queues, scheduled jobs, email, and SMS.</li>
+                  <li>Created <span class="hl">responsive Angular interfaces</span> and PWA support for desktop, tablet, and shop-floor mobile use.</li>
+                  <li>Supported application releases through <span class="hl">automated tests</span>, release documentation, database backups, deployment checks, and production troubleshooting.</li>
+                </ul>
+                <div class="exp-subproject-tech">
+                  <span>PHP 8</span><span>Laravel 12</span><span>Angular 20</span><span>TypeScript</span><span>MySQL</span><span>Redis</span><span>Laravel Reverb</span><span>REST APIs</span><span>Maya</span><span>Xendit</span><span>Bootstrap</span><span>Tailwind CSS</span><span>PHPUnit</span><span>Playwright</span><span>Nginx</span><span>Git</span>
+                </div>
+                <a href="https://imprentra.com" target="_blank" rel="noopener" class="project-link">Visit site &rarr;</a>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="exp-card">
+            <div class="exp-card-header">
+              <div class="exp-period">Nov 2018 – Jun 2026</div>
+              <div class="exp-role">Senior Full-Stack Developer</div>
+              <div class="exp-org">FusedSoftware — Remote, Australia</div>
+            </div>
+            <p class="exp-overview">Worked as a <span class="hl">Senior Full-Stack Developer</span> building, maintaining, and improving <span class="hl">production web applications</span> for international clients. Delivered features across the full development lifecycle — from <span class="hl">requirements analysis</span> and <span class="hl">technical design</span> through implementation, testing, deployment, <span class="hl">production troubleshooting</span>, and ongoing support.</p>
+
+            <div class="exp-projects">
+              <div class="exp-projects-label">Projects</div>
+
+              <div class="exp-subproject">
+                <div class="exp-subproject-header">
+                  <span class="exp-subproject-name">Chefgood</span>
+                  <span class="exp-subproject-badge">Meal Subscription &amp; Operations</span>
+                </div>
+                <p class="exp-subproject-desc">Contributed to Chefgood, an Australian meal-delivery platform supporting recurring subscriptions, meal selection, payments, order fulfilment, delivery scheduling, and internal business operations.</p>
+                <ul class="exp-contributions">
+                  <li>Developed and maintained <span class="hl">customer-facing</span> and <span class="hl">administrative features</span> for <span class="hl">meal subscriptions</span>, account management, meal selection, orders, and <span class="hl">delivery scheduling</span>.</li>
+                  <li>Built and enhanced <span class="hl">Laravel APIs</span> and business logic supporting <span class="hl">subscription renewals</span>, <span class="hl">billing cycles</span>, <span class="hl">automated order generation</span>, and operational workflows.</li>
+                  <li>Worked with recurring payment and refund workflows involving <span class="hl">Braintree</span>, <span class="hl">IXOPay</span>, and <span class="hl">legacy eWay</span> transaction reconciliation.</li>
+                  <li>Improved <span class="hl">delivery-zone</span>, postcode, <span class="hl">cutoff-time</span>, and <span class="hl">delivery-window</span> functionality, including updates affecting active subscription cycles.</li>
+                  <li>Developed <span class="hl">administrative tools</span>, dashboards, <span class="hl">operational reports</span>, and <span class="hl">Excel and PDF exports</span> for customer, sales, delivery, and meal-production data.</li>
+                  <li>Implemented and supported <span class="hl">background jobs</span>, scheduled processes, notifications, <span class="hl">data migrations</span>, repair scripts, and <span class="hl">third-party integrations</span>.</li>
+                  <li>Diagnosed <span class="hl">production issues</span>, corrected data inconsistencies, improved <span class="hl">automated tests</span>, and supported releases and <span class="hl">post-deployment verification</span>.</li>
+                  <li>Worked across backend, frontend, and database layers using <span class="hl">PHP</span>, <span class="hl">Laravel</span>, <span class="hl">AngularJS</span>, <span class="hl">MySQL</span>, <span class="hl">REST APIs</span>, <span class="hl">Redis-backed queues</span>, and <span class="hl">Git</span>.</li>
+                </ul>
+                <div class="exp-subproject-tech">
+                  <span>PHP</span><span>Laravel</span><span>AngularJS</span><span>JavaScript</span><span>MySQL</span><span>REST APIs</span><span>Redis</span><span>HTML</span><span>CSS</span><span>Git</span>
+                </div>
+                <a href="https://chefgood.com.au" target="_blank" rel="noopener" class="project-link">Visit site &rarr;</a>
+              </div>
+
+              <div class="exp-subproject">
+                <div class="exp-subproject-header">
+                  <span class="exp-subproject-name">SendThat</span>
+                  <span class="exp-subproject-badge">Freight Booking &amp; Delivery</span>
+                </div>
+                <p class="exp-subproject-desc">Contributed to SendThat, an Australian freight-booking platform that enabled individuals and businesses to compare courier services, book parcel deliveries, make online payments, and track consignments.</p>
+                <ul class="exp-contributions">
+                  <li>Developed and maintained the <span class="hl">end-to-end shipping workflow</span>, covering pickup and delivery details, package dimensions, courier quotations, checkout, payment, and order creation.</li>
+                  <li>Integrated the <span class="hl">MachShip freight-management API</span> for location searches, carrier quotations, route selection, consignment creation, shipping labels, manifests, and delivery-status updates.</li>
+                  <li>Implemented <span class="hl">Stripe payment</span> functionality for customer creation, saved payment methods, card payments, and transaction processing.</li>
+                  <li>Developed <span class="hl">individual and bulk-shipment</span> booking workflows with validation, database transactions, error logging, and recovery handling.</li>
+                  <li>Built <span class="hl">delivery-tracking features</span> that synchronized consignment statuses and notified customers as shipments progressed.</li>
+                  <li>Developed <span class="hl">customer account tools</span> for managing pickup, delivery, and billing addresses, saved package dimensions, payment methods, and order history.</li>
+                  <li>Built <span class="hl">administrative features</span> for managing orders, customers, carrier groups, courier services, coupons, partners, website content, configuration, and consignment logs.</li>
+                  <li>Implemented <span class="hl">partner-specific subdomains</span> and configuration to support branded versions of the shipping platform.</li>
+                  <li>Developed <span class="hl">scheduled processes and background jobs</span> for synchronizing carriers, retrieving shipment updates, processing tracking logs, and sending status-change emails.</li>
+                  <li>Worked across backend, frontend, database, and third-party integrations using <span class="hl">PHP</span>, <span class="hl">Laravel</span>, <span class="hl">AngularJS</span>, <span class="hl">MySQL</span>, <span class="hl">REST APIs</span>, <span class="hl">Stripe</span>, and <span class="hl">MachShip</span>.</li>
+                </ul>
+                <div class="exp-subproject-tech">
+                  <span>PHP</span><span>Laravel</span><span>AngularJS</span><span>JavaScript</span><span>MySQL</span><span>REST APIs</span><span>Stripe</span><span>MachShip</span><span>Bootstrap</span><span>Sass</span><span>Git</span>
+                </div>
+                <a href="https://sendthat.com.au" target="_blank" rel="noopener" class="project-link">Visit site &rarr;</a>
+              </div>
+
+              <div class="exp-subproject">
+                <div class="exp-subproject-header">
+                  <span class="exp-subproject-name">Doggy Dan</span>
+                  <span class="exp-subproject-badge">Admin &amp; Membership Platform</span>
+                </div>
+                <p class="exp-subproject-desc">Contributed UI and UX improvements to Doggy Dan's internal administration platform, which supported reporting, orders, products, users, membership operations, system configuration, and integration logs.</p>
+                <ul class="exp-contributions">
+                  <li>Improved the <span class="hl">UI and UX</span> of the administrative dashboard based on client feedback and operational requirements.</li>
+                  <li>Refined <span class="hl">navigation and information hierarchy</span> across reports, orders, users, products, domains, system settings, and operational logs.</li>
+                  <li>Developed and updated reusable <span class="hl">AngularJS components</span> and <span class="hl">Laravel Blade templates</span> for administrative screens.</li>
+                  <li>Improved <span class="hl">data-heavy interfaces</span> with clearer tables, search controls, date-range filters, pagination, status indicators, and empty-state messaging.</li>
+                  <li>Enhanced <span class="hl">add-and-edit workflows</span> using structured forms, modal dialogs, validation feedback, loading states, and confirmation messages.</li>
+                  <li>Improved <span class="hl">interface consistency</span> across buttons, form controls, typography, spacing, colors, and action states.</li>
+                  <li>Addressed <span class="hl">responsive-layout</span> and usability issues to make administrative screens easier to use across desktop and smaller displays.</li>
+                  <li>Fixed <span class="hl">frontend defects</span> and delivered iterative interface updates in response to changing client requirements.</li>
+                  <li>Worked within an existing <span class="hl">production application</span> while preserving its established workflows and backend behavior.</li>
+                </ul>
+                <div class="exp-subproject-tech">
+                  <span>AngularJS</span><span>JavaScript</span><span>HTML</span><span>CSS</span><span>Sass</span><span>Bootstrap</span><span>Laravel Blade</span><span>PHP</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="exp-card">
+            <div class="exp-card-header">
+              <div class="exp-period">Dec 2017 – Feb 2018</div>
+              <div class="exp-role">Senior Software Engineer</div>
+              <div class="exp-org">BIZWEX — Business Web Experts — Philippines</div>
+            </div>
+            <p class="exp-overview">Developed full-stack business applications using Laravel, AngularJS, and MySQL, working across requirements analysis, implementation, testing, troubleshooting, and delivery.</p>
+
+            <div class="exp-projects">
+              <div class="exp-projects-label">Projects</div>
+
+              <div class="exp-subproject">
+                <div class="exp-subproject-header">
+                  <span class="exp-subproject-name">Inventory Management System</span>
+                  <span class="exp-subproject-badge">Construction Hardware</span>
+                </div>
+                <p class="exp-subproject-desc">Contributed to an inventory management system that helped a construction-hardware business organize products, maintain inventory records, and monitor stock.</p>
+                <ul class="exp-contributions">
+                  <li>Developed <span class="hl">Laravel backend features</span> and application logic for managing products, stock quantities, and inventory movements.</li>
+                  <li>Built <span class="hl">AngularJS interfaces</span> for inventory data entry and day-to-day management workflows.</li>
+                  <li>Designed and maintained <span class="hl">MySQL database structures</span> supporting product and inventory records.</li>
+                  <li>Implemented <span class="hl">validation and error handling</span> to improve the accuracy of inventory transactions.</li>
+                  <li>Worked across <span class="hl">frontend, backend, and database layers</span> to deliver complete application features.</li>
+                  <li>Investigated <span class="hl">application defects</span> and inventory-data inconsistencies and implemented appropriate fixes.</li>
+                  <li>Collaborated with the client and development team to translate <span class="hl">operational requirements</span> into practical system workflows.</li>
+                  <li>Used <span class="hl">VMware-based environments</span> for application development, testing, and deployment support.</li>
+                </ul>
+                <div class="exp-subproject-tech">
+                  <span>PHP</span><span>Laravel</span><span>AngularJS</span><span>JavaScript</span><span>MySQL</span><span>VMware</span><span>HTML</span><span>CSS</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="exp-card">
+            <div class="exp-card-header">
+              <div class="exp-period">Nov 2016 – Jun 2017</div>
+              <div class="exp-role">Junior Program Developer</div>
+              <div class="exp-org">ACEBPO — Philippines</div>
+            </div>
+            <p class="exp-overview">Contributed to the development of an internal <span class="hl">Human Resources Information System (HRIS)</span>, focusing on employee time and attendance tracking.</p>
+            <ul class="exp-contributions">
+              <li>Worked on an <span class="hl">RFID-based time-tracking module</span> that recorded employees entering and leaving the company's premises.</li>
+              <li>Integrated <span class="hl">attendance events</span> from RFID readers installed at building access points into the HRIS.</li>
+              <li>Helped organize <span class="hl">employee entry and exit records</span> for attendance monitoring and administrative review.</li>
+              <li>Implemented <span class="hl">validations and application logic</span> for processing employee time records.</li>
+              <li>Assisted with troubleshooting, <span class="hl">bug fixes</span>, testing, and maintenance of the HRIS module.</li>
+              <li>Collaborated with the development team to ensure the <span class="hl">time-tracking functionality</span> worked reliably with existing employee records and HR workflows.</li>
+            </ul>
+          </div>
+
+          <div class="exp-card">
+            <div class="exp-card-header">
+              <div class="exp-period">Nov 2014 – Nov 2016</div>
+              <div class="exp-role">Web Developer</div>
+              <div class="exp-org">Webero.ph — Philippines</div>
+            </div>
+            <p class="exp-overview">Developed and maintained websites and web applications using PHP, early versions of the Laravel framework, JavaScript, and jQuery.</p>
+            <ul class="exp-contributions">
+              <li>Built <span class="hl">backend application features</span> and server-rendered web pages using PHP and Laravel.</li>
+              <li>Developed <span class="hl">interactive frontend behavior</span> using JavaScript and jQuery.</li>
+              <li>Converted <span class="hl">client requirements</span> and interface designs into functional web pages and application features.</li>
+              <li>Worked across <span class="hl">frontend and backend code</span> to implement updates, resolve defects, and maintain existing applications.</li>
+              <li>Troubleshot <span class="hl">browser, interface, and application issues</span> to improve reliability and usability.</li>
+              <li>Delivered <span class="hl">iterative enhancements</span> based on client feedback and changing business requirements.</li>
+            </ul>
+            <div class="exp-tech">
+              <span>PHP</span><span>Laravel</span><span>JavaScript</span><span>jQuery</span><span>HTML</span><span>CSS</span>
+            </div>
+          </div>
+
+          <div class="exp-card">
+            <div class="exp-card-header">
+              <div class="exp-period">Jun 2014 – Nov 2014</div>
+              <div class="exp-role">IT Instructor</div>
+              <div class="exp-org">ACLC College of Balanga City — Philippines</div>
+            </div>
+            <p class="exp-overview">Taught information technology subjects through classroom instruction and hands-on computer laboratory sessions.</p>
+            <ul class="exp-contributions">
+              <li>Prepared <span class="hl">lesson plans</span>, presentations, practical exercises, assignments, and examinations.</li>
+              <li>Explained <span class="hl">technical concepts</span> in a clear and approachable way for students with different levels of experience.</li>
+              <li>Guided students through <span class="hl">laboratory activities</span> and the practical application of IT concepts.</li>
+              <li>Evaluated <span class="hl">student performance</span> and provided constructive feedback to support improvement.</li>
+              <li>Maintained an organized and supportive <span class="hl">learning environment</span> while helping students strengthen their technical and problem-solving skills.</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+      <div class="scroll-indicator" id="scrollIndicator">
+        <button class="scroll-btn" onclick="document.querySelector('.col-middle').scrollBy({top: 200, behavior: 'smooth'})">
+          <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Right: Projects -->
+    <div class="col-right">
+      <div class="section-label">Projects</div>
+      <div class="projects-list">
+        <div class="project">
+          <div class="project-top">
+            <span class="project-name">Imprentra</span>
+            <span class="project-badge">SaaS</span>
+          </div>
+          <p class="project-desc">All-in-one SaaS for Philippine printing businesses — job orders, production, customers, quotations, payments, AI workflows, real-time notifications.</p>
+          <div class="project-stack">
+            <span>Laravel 12</span><span>Angular 20</span><span>TypeScript</span><span>MySQL</span><span>Redis</span><span>Maya</span><span>Xendit</span>
+          </div>
+          <a href="https://imprentra.com" target="_blank" rel="noopener" class="project-link">Visit site &rarr;</a>
+        </div>
+        <div class="project">
+          <div class="project-top">
+            <span class="project-name">Menu Engineering</span>
+            <span class="project-badge">Profitability</span>
+          </div>
+          <p class="project-desc">Decision-support platform for food-service profitability — dashboards, recipe costing engine, Opportunity Lab, 92% test coverage.</p>
+          <div class="project-stack">
+            <span>Laravel 13</span><span>Angular 21</span><span>TypeScript</span><span>MySQL</span><span>Docker</span>
+          </div>
+          <div class="project-actions">
+            <a href="https://menu-staging.innovativesprout.com" target="_blank" rel="noopener" class="project-link">Visit site &rarr;</a>
+          </div>
+          <div class="project-gallery-wrap">
+            <button class="gallery-arrow gallery-arrow-left" id="galleryPrev" onclick="scrollGallery(-1)" disabled>
+              <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <div class="project-gallery" id="projectGallery">
+              <img src="images/menu-1-dashboard.png" alt="Dashboard" onclick="openLightbox(this)">
+              <img src="images/menu-2-profitability.png" alt="Profitability" onclick="openLightbox(this)">
+              <img src="images/menu-3-margin-trend.png" alt="Margin Trend" onclick="openLightbox(this)">
+              <img src="images/menu-4-price-impact.png" alt="Price Impact" onclick="openLightbox(this)">
+              <img src="images/menu-5-opportunity-lab.png" alt="Opportunity Lab" onclick="openLightbox(this)">
+              <img src="images/menu-6-process-guide.png" alt="Process Guide" onclick="openLightbox(this)">
+              <img src="images/menu-7-process-map.png" alt="Process Map" onclick="openLightbox(this)">
+              <img src="images/menu-8-waste.png" alt="Waste" onclick="openLightbox(this)">
+            </div>
+            <button class="gallery-arrow gallery-arrow-right" id="galleryNext" onclick="scrollGallery(1)">
+              <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="project">
+          <div class="project-top">
+            <span class="project-name">Chefgood</span>
+            <span class="project-badge">Platform</span>
+          </div>
+          <p class="project-desc">Meal subscription platform — subscriptions, payments, delivery scheduling, admin tools, Excel/PDF exports.</p>
+          <div class="project-stack">
+            <span>Laravel</span><span>AngularJS</span><span>MySQL</span><span>Redis</span><span>Braintree</span>
+          </div>
+          <a href="https://chefgood.com.au" target="_blank" rel="noopener" class="project-link">Visit site &rarr;</a>
+        </div>
+        <div class="project">
+          <div class="project-top">
+            <span class="project-name">SendThat</span>
+            <span class="project-badge">Freight</span>
+          </div>
+          <p class="project-desc">Freight-booking platform — courier comparison, shipping workflow, MachShip API, Stripe payments, delivery tracking.</p>
+          <div class="project-stack">
+            <span>Laravel</span><span>AngularJS</span><span>MySQL</span><span>Stripe</span><span>MachShip</span>
+          </div>
+          <a href="https://sendthat.com.au" target="_blank" rel="noopener" class="project-link">Visit site &rarr;</a>
+        </div>
+        <div class="project">
+          <div class="project-top">
+            <span class="project-name">Inventory Management</span>
+            <span class="project-badge">Construction</span>
+          </div>
+          <p class="project-desc">Inventory system for construction hardware — products, stock quantities, inventory movements, validation.</p>
+          <div class="project-stack">
+            <span>Laravel</span><span>AngularJS</span><span>MySQL</span><span>VMware</span>
+          </div>
+          <div class="project-links">
+            <a href="https://tagles.imsbataan.com" target="_blank" rel="noopener" class="project-link">Tagles &rarr;</a>
+            <a href="https://jme.imsbataan.com" target="_blank" rel="noopener" class="project-link">JME &rarr;</a>
+          </div>
+        </div>
+        <div class="project">
+          <div class="project-top">
+            <span class="project-name">Doggy Dan</span>
+            <span class="project-badge">UI/UX</span>
+          </div>
+          <p class="project-desc">Admin dashboard UI/UX improvements — navigation, data tables, responsive layouts, component consistency.</p>
+          <div class="project-stack">
+            <span>AngularJS</span><span>Laravel Blade</span><span>Sass</span><span>Bootstrap</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+    <button class="lightbox-nav lightbox-prev" id="lightboxPrev" onclick="lightboxNav(-1)">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <div class="lightbox-content">
+      <img id="lightboxImage" src="" alt="Screenshot">
+    </div>
+    <button class="lightbox-nav lightbox-next" id="lightboxNext" onclick="lightboxNav(1)">
+      <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+    <div class="lightbox-counter" id="lightboxCounter">1 / 8</div>
+  </div>
+
+  <script>
+    // Lightbox functionality
+    const lightboxImages = [];
+    let lightboxIndex = 0;
+
+    function openLightbox(img) {
+      // Collect all gallery images
+      const gallery = document.getElementById('projectGallery');
+      lightboxImages.length = 0;
+      gallery.querySelectorAll('img').forEach(i => lightboxImages.push(i.src));
+      lightboxIndex = lightboxImages.indexOf(img.src);
+      updateLightbox();
+      document.getElementById('lightbox').classList.add('open');
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('open');
+    }
+
+    function lightboxNav(dir) {
+      lightboxIndex += dir;
+      if (lightboxIndex < 0) lightboxIndex = lightboxImages.length - 1;
+      if (lightboxIndex >= lightboxImages.length) lightboxIndex = 0;
+      updateLightbox();
+    }
+
+    function updateLightbox() {
+      document.getElementById('lightboxImage').src = lightboxImages[lightboxIndex];
+      document.getElementById('lightboxCounter').textContent = `${lightboxIndex + 1} / ${lightboxImages.length}`;
+      document.getElementById('lightboxPrev').disabled = lightboxIndex === 0;
+      document.getElementById('lightboxNext').disabled = lightboxIndex === lightboxImages.length - 1;
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (!document.getElementById('lightbox').classList.contains('open')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') lightboxNav(-1);
+      if (e.key === 'ArrowRight') lightboxNav(1);
+    });
+
+    // Gallery scroll arrows
+    const gallery = document.getElementById('projectGallery');
+    const prevBtn = document.getElementById('galleryPrev');
+    const nextBtn = document.getElementById('galleryNext');
+    const scrollAmount = 160;
+
+    function scrollGallery(dir) {
+      gallery.scrollBy({ left: dir * scrollAmount, behavior: 'smooth' });
+    }
+
+    function updateGalleryArrows() {
+      prevBtn.disabled = gallery.scrollLeft <= 0;
+      nextBtn.disabled = gallery.scrollLeft >= gallery.scrollWidth - gallery.clientWidth - 5;
+    }
+
+    gallery.addEventListener('scroll', updateGalleryArrows);
+    window.addEventListener('load', updateGalleryArrows);
+
+    // Scroll indicator for middle column
+    const middleCol = document.querySelector('.col-middle');
+    const scrollIndicator = document.getElementById('scrollIndicator');
+
+    if (middleCol && scrollIndicator) {
+      middleCol.addEventListener('scroll', () => {
+        const atBottom = middleCol.scrollHeight - middleCol.scrollTop <= middleCol.clientHeight + 10;
+        scrollIndicator.classList.toggle('hidden', atBottom);
+      });
+
+      // Check on load
+      setTimeout(() => {
+        const atBottom = middleCol.scrollHeight - middleCol.scrollTop <= middleCol.clientHeight + 10;
+        scrollIndicator.classList.toggle('hidden', atBottom);
+      }, 100);
+    }
+  </script>
+
+</body>
+</html>

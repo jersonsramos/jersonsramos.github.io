@@ -1,0 +1,30 @@
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+membership-system-proposal.md
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Temporary files
+*.tmp
+*.bak
+
+# Node (if you add tools later)
+node_modules/
+resume-review/
+Obsidian-Portfolio/
+
+# Don't ignore images or HTML
+!images/
+!*.html
+!*.css
+!*.js
+!*.jpg
+!*.png
+!*.svg
